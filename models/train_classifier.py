@@ -3,7 +3,7 @@ import sys
 # !pip install --upgrade pip
 # !pip install xgboost
 
-# import libraries
+# importing libraries for the ML Process
 import pandas as pd
 import numpy as np
 from sqlalchemy import create_engine
