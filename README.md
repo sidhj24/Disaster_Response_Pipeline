@@ -52,3 +52,8 @@ Other Details -
 	b. Leverage Pipeline functionality to implement Vectorization and TF-IDF transformation
 	c. Build multiple models and picking best classifier model giving best results
 	d. Evaluate and Summarize the outcomes of the model
+	e. GridSearch and adding FeatureUnion to refine the model output
+	
+3. Setting up the Application and visuals
+	a. Setup charts and link the databases to update the application
+	
