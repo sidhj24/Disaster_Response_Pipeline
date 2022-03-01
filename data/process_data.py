@@ -48,7 +48,13 @@ def clean_data(df):
     df.drop('categories', inplace=True, axis=1)
     df = pd.concat([df, categories], axis =1, join = 'inner')
     df.drop_duplicates(inplace=True)
-       
+    
+    #Remove child alone as it has all zeros only
+    df.drop(['child_alone'], axis=1, inplace = True)
+    
+    # Given value 2 in the related field are neglible so it could be error. Replacing 2 with 1 as it is majority class
+    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)       
+    
     return df
     
 def save_data(df, database_filename):
