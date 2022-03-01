@@ -137,7 +137,7 @@ def build_model():
             ])), 
             ('starting_verb_transformer', StartingVerbExtractor())
         ])), 
-        ('classifier', MultiOutputClassifier(RandomForestClassifier(max_depth = 2, n_estimators = 25)))
+        ('classifier', MultiOutputClassifier(RandomForestClassifier()))
     ])
     
     return model
@@ -155,7 +155,14 @@ def evaluate_model(model, X_test, y_test):
         Y_test -> Test labels
         
     """
-    y_pred = model.predict(X_test)
+    
+    params = {'classifier__estimator__max_depth': [2, 3, 4],
+              'classifier__estimator__n_estimators': [20, 25, 30]}
+
+    cv = GridSearchCV(model, param_grid=params, n_jobs=-1)
+    cv.fit(X_train, y_train)
+
+    y_pred = cv.best_estimator_.predict(X_test)
     
     micro_f1 = f1_score(y_test, y_pred, average = 'micro')
     overall_accuracy = (y_pred == y_test).mean().mean()
