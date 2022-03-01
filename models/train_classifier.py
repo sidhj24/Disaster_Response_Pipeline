@@ -62,10 +62,10 @@ def load_data(database_filepath):
 #     df = pd.read_sql_table('DisRes', engine)
 
     #Remove child alone as it has all zeros only
-    df.drop(['child_alone'], axis=1, inplace = True)
+    # df.drop(['child_alone'], axis=1, inplace = True)
     
     # Given value 2 in the related field are neglible so it could be error. Replacing 2 with 1 as it is majority class
-    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
+    # df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
     
     X = df['message']
     y = df.iloc[:,4:]
