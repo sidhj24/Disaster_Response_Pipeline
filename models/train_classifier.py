@@ -57,15 +57,12 @@ def load_data(database_filepath):
     table_name = os.path.basename(database_filepath).replace(".db","")
     df = pd.read_sql_table(table_name, engine)
     
-#     engine = create_engine('sqlite:///data/DisRes.db')
-#     table_name = os.path.basename(database_filepath).replace(".db","")
-#     df = pd.read_sql_table('DisRes', engine)
 
     #Remove child alone as it has all zeros only
     # df.drop(['child_alone'], axis=1, inplace = True)
     
     # Given value 2 in the related field are neglible so it could be error. Replacing 2 with 1 as it is majority class
-    # df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
+    df['related']=df['related'].map(lambda x: 1 if x == 2 else x)
     
     X = df['message']
     y = df.iloc[:,4:]
@@ -162,7 +159,7 @@ def evaluate_model(model, X_test, y_test):
     """
     
 
-    y_pred = model.predict(X_test)
+    y_pred = model.best_estimator_.predict(X_test)
     
     micro_f1 = f1_score(y_test, y_pred, average = 'micro')
     overall_accuracy = (y_pred == y_test).mean().mean()
