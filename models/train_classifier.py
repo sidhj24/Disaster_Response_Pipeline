@@ -162,7 +162,7 @@ def evaluate_model(model, X_test, y_test):
     """
     
 
-    y_pred = model.best_estimator_.predict(X_test)
+    y_pred = model.predict(X_test)
     
     micro_f1 = f1_score(y_test, y_pred, average = 'micro')
     overall_accuracy = (y_pred == y_test).mean().mean()
